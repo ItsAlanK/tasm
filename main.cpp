@@ -13,7 +13,7 @@ int main(){
     // Main game loop
 	while(!WindowShouldClose()){
         BeginDrawing();
-        ClearBackground(WHITE); 
+        ClearBackground(WHITE);
         EndDrawing();
     }
 
