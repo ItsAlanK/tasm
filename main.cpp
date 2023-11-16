@@ -2,10 +2,10 @@
 
 int main(){
     // Set window size
-    const int windowWidth{500};
-    const int windowHeight{500};
+    const int windowWidth{750};
+    const int windowHeight{750};
     
-    InitWindow(windowWidth,windowHeight,"My Window");
+    InitWindow(windowWidth,windowHeight,"TASM");
 
     // Set FPS
     SetTargetFPS(60);
