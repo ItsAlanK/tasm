@@ -6,7 +6,7 @@
 
 ### Required Features ###
 
-- [ ] Opens a window 
+- [X] Opens a window 
 - [ ] Has Sprites/3D Models: Includes textures, shapes, shaders, 3D models 
 - [ ] Capable of user input: Game controller, mouse input, keyboard input, use of camera 
 - [ ] Sprites/3D Models capable of: Movement, animation, collisions 
