@@ -1,4 +1,6 @@
+#include <iostream>
 #include "raylib.h"
+#include "src/base_object.h"
 
 
 // Basic rectangle object class player char and obstacles will build off
@@ -27,7 +29,7 @@ int main(){
     
     InitWindow(windowWidth,windowHeight,"TASM");
 
-    Object basicObject(windowWidth/2 - 50, windowHeight/2 - 100, 100, 200, RED);
+    Ball myBall({windowWidth/2, windowHeight/2}, 50, BLUE);
 
     // Set FPS
     SetTargetFPS(60);
@@ -36,7 +38,7 @@ int main(){
 	while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
-        basicObject.Draw();
+        myBall.Draw();
         EndDrawing();
     }
 
