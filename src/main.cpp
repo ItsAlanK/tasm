@@ -1,6 +1,7 @@
 #include <iostream>
 #include "raylib.h"
 #include "components/base_object.h"
+#include "components/player.h"
 
 
 int main(){
@@ -10,7 +11,13 @@ int main(){
     
     InitWindow(windowWidth,windowHeight,"TASM");
 
-    Object myObject(100,100,100,100, BLUE);
+    // Set Player params
+    const int playerWidth{100};
+    const int playerHeight{200};
+    const int playerPosY{100};
+    int playerPosX{100};
+
+    Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
 
     // Set FPS
     SetTargetFPS(60);
@@ -19,7 +26,7 @@ int main(){
 	while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
-        myObject.Draw();
+        myPlayer.Draw();
         EndDrawing();
     }
 
