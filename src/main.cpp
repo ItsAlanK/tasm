@@ -12,10 +12,10 @@ int main(){
     InitWindow(windowWidth,windowHeight,"TASM");
 
     // Set Player params
-    const int playerWidth{100};
-    const int playerHeight{200};
-    const int playerPosY{100};
-    int playerPosX{100};
+    const int playerWidth{80};
+    const int playerHeight{160};
+    const int playerPosY{(windowHeight/4)*3 - playerHeight/2};
+    int playerPosX{windowWidth/4 - playerWidth/2};
 
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
 
