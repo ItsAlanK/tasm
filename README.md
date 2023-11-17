@@ -1,17 +1,26 @@
-# Raylib CMake Starter for C++
-
-This is a starter project for using [Raylib](https://www.raylib.com/) with C++ and CMake.
-**WARNING: Only tested on MacOS**
+# TASM #
 
 
-## Getting Started
+## Features & Technologies ##
 
-1. Clone this repository
-2. Initialize the submodules: `git submodule update --init --recursive`
-3. Build `./b`
-5. Run `./r`
 
-## TODO
+### Required Features ###
 
-- [ ] Support for ANGLE
-- [ ] Support more Platforms
+- [X] Opens a window 
+- [ ] Has Sprites/3D Models: Includes textures, shapes, shaders, 3D models 
+- [ ] Capable of user input: Game controller, mouse input, keyboard input, use of camera 
+- [ ] Sprites/3D Models capable of: Movement, animation, collisions 
+- [ ] Plays audio: Background audio or individual audio clips 
+- [ ] Includes text: Load different fonts 
+- [ ] Uses git/github source control
+- [ ] Use of header and source files
+
+### Additional Feature Targets ###
+
+- [ ] Power-ups 
+- [ ] Particle effects on death
+- [ ] Different levels of difficulty
+
+## Future Improvements ##
+
+## Credits ##
