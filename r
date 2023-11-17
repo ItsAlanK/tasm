@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./build/raylib-starter
+./build/tasm
