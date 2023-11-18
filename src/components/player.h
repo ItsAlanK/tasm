@@ -10,14 +10,16 @@ class Player: public Object {
         int width;
         int height;
         int jumpHeight;
+        int jumpRate;
         const int gravity;
-        bool isJumping;
         
     public:
+        bool isJumping;
         Player(int x, int y, int width, int height, Color color);
 
         void Draw();
-        void Apply_Gravity(float dt);
+        void Apply_Gravity(float dt, int initY);
+        void Jump(float dt);
 };
 
 #endif

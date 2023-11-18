@@ -27,10 +27,15 @@ int main(){
 
         const float deltaTime{GetFrameTime()};
 
+        // Impose gravity on player
+        myPlayer.Apply_Gravity(deltaTime, playerPosY);
+
+        // listen for jump command
+        myPlayer.Jump(deltaTime);
+
         BeginDrawing();
         ClearBackground(WHITE);
         myPlayer.Draw();
-        myPlayer.Apply_Gravity(deltaTime);
         EndDrawing();
     }
 
