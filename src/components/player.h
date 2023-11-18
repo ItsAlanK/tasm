@@ -9,11 +9,15 @@ class Player: public Object {
     private: 
         int width;
         int height;
+        int jumpHeight;
+        const int gravity;
+        bool isJumping;
         
     public:
         Player(int x, int y, int width, int height, Color color);
 
         void Draw();
+        void Apply_Gravity(float dt);
 };
 
 #endif

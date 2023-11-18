@@ -11,7 +11,7 @@ int main(){
     
     InitWindow(windowWidth,windowHeight,"TASM");
 
-    // Set Player params
+    // Set Player params (could include consts in Player class later)
     const int playerWidth{80};
     const int playerHeight{160};
     const int playerPosY{(windowHeight/4)*3 - playerHeight/2};
@@ -24,9 +24,13 @@ int main(){
 
     // Main game loop
 	while(!WindowShouldClose()){
+
+        const float deltaTime{GetFrameTime()};
+
         BeginDrawing();
         ClearBackground(WHITE);
         myPlayer.Draw();
+        myPlayer.Apply_Gravity(deltaTime);
         EndDrawing();
     }
 
