@@ -25,6 +25,11 @@ int main(){
     // Main game loop
 	while(!WindowShouldClose()){
 
+        // Quick close button
+        if(IsKeyPressed(KEY_ESCAPE)) {
+            CloseWindow();
+        }
+
         const float deltaTime{GetFrameTime()};
 
         // Impose gravity on player
