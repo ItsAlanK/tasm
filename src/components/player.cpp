@@ -52,7 +52,7 @@ void Player::Jump(float dt) {
 void Player::Crouch(float dt) {
     // Listen for key to set jumpRate and isJumping
     if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_S)) {
-        Object::color = RED;
+        width = width * 2;
     } else {
         Object::color = BLUE;
     }
