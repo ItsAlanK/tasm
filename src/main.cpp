@@ -37,7 +37,7 @@ int main(){
 
         // listen for inputs
         myPlayer.Jump(deltaTime);
-        myPlayer.Crouch(playerPosY, playerWidth, playerHeight);
+        myPlayer.Crouch(playerPosX, playerPosY, playerWidth, playerHeight);
 
         BeginDrawing();
         ClearBackground(WHITE);

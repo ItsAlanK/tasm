@@ -54,11 +54,12 @@ void Player::Jump(float dt) {
  * to initial state and not continually adding/subtracting with each game loop
  * Key released used instead of else statement to not overwrite Y position contantly which breaks jump
 */
-void Player::Crouch(float initY, float initWidth, float initHeight) {
+void Player::Crouch(float initX, float initY, float initWidth, float initHeight) {
     // Listen for key to set crouch sizes and pos
     if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_S)) {
         isCrouching = true;
         width = initWidth * 2;
+        posX = initX - initWidth;
         posY = initY + initWidth;
         height = initHeight / 2;
     }
@@ -67,6 +68,7 @@ void Player::Crouch(float initY, float initWidth, float initHeight) {
         isCrouching = false;
         width = initWidth;
         height = initHeight;
+        posX = initX;
         posY = initY;
     }
 

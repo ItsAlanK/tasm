@@ -21,7 +21,7 @@ class Player: public Object {
         void Draw();
         void Apply_Gravity(float dt, int initY);
         void Jump(float dt);
-        void Crouch(float initY, float initWidth, float initHeight);
+        void Crouch(float initX, float initY, float initWidth, float initHeight);
 };
 
 #endif
