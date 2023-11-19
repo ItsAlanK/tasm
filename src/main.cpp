@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "components/base_object.h"
 #include "components/player.h"
+#include "components/obstacle.h"
 
 
 int main(){
@@ -18,6 +19,9 @@ int main(){
     int playerPosX{windowWidth/4 - playerWidth/2};
 
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
+
+    // Init Obstacle
+    Obstacle myObstacle(windowWidth, 600, 80, 40, RED);
 
     // Set FPS
     SetTargetFPS(60);
@@ -40,8 +44,9 @@ int main(){
         myPlayer.Crouch(playerPosX, playerPosY, playerWidth, playerHeight);
 
         BeginDrawing();
-        ClearBackground(WHITE);
+        ClearBackground(LIGHTGRAY);
         myPlayer.Draw();
+        myObstacle.Draw();
         EndDrawing();
     }
 
