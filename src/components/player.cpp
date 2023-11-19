@@ -1,6 +1,5 @@
 #include "player.h"
 #include <thread>
-#include <chrono>
 
 Player::Player(int x, int y, int width, int height, Color color)
     :Object(x, y, color),
@@ -51,11 +50,10 @@ void Player::Jump(float dt) {
 
 // Handle player crouch on keypress
 void Player::Crouch(float dt) {
-    using namespace std::this_thread;
-    using namespace std::chrono_literals;
     // Listen for key to set jumpRate and isJumping
-    if ((IsKeyPressed(KEY_LEFT_SHIFT) || IsKeyPressed(KEY_S)) && !isCrouching) {
-        isCrouching = true;
+    if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_S)) {
         Object::color = RED;
+    } else {
+        Object::color = BLUE;
     }
 }
