@@ -15,11 +15,13 @@ class Player: public Object {
         
     public:
         bool isJumping;
+        bool isCrouching;
         Player(int x, int y, int width, int height, Color color);
 
         void Draw();
         void Apply_Gravity(float dt, int initY);
         void Jump(float dt);
+        void Crouch(float dt);
 };
 
 #endif

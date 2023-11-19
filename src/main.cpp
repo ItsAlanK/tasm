@@ -6,8 +6,8 @@
 
 int main(){
     // Set window size
-    const int windowWidth{750};
-    const int windowHeight{750};
+    const int windowWidth{960};
+    const int windowHeight{960};
     
     InitWindow(windowWidth,windowHeight,"TASM");
 
@@ -35,8 +35,9 @@ int main(){
         // Impose gravity on player
         myPlayer.Apply_Gravity(deltaTime, playerPosY);
 
-        // listen for jump command
+        // listen for inputs
         myPlayer.Jump(deltaTime);
+        myPlayer.Crouch(deltaTime);
 
         BeginDrawing();
         ClearBackground(WHITE);

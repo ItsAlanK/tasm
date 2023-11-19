@@ -1,4 +1,6 @@
 #include "player.h"
+#include <thread>
+#include <chrono>
 
 Player::Player(int x, int y, int width, int height, Color color)
     :Object(x, y, color),
@@ -7,7 +9,8 @@ Player::Player(int x, int y, int width, int height, Color color)
     jumpHeight(200),
     jumpRate(0),
     gravity(500),
-    isJumping(false)
+    isJumping(false),
+    isCrouching(false)
     {}
 
 // Draw object to screen
@@ -25,17 +28,17 @@ void Player::Apply_Gravity(float dt, int initY) {
     if (isJumping && posY < initY) {
         posY += gravity * dt;
     } else {
-        isJumping = false;
         jumpRate = 0;
+        isJumping = false;
     }
 }
 
 // Handle player jumps on key press
 void Player::Jump(float dt) {
     // Listen for key to set jumpRate and isJumping
-    if (IsKeyPressed(KEY_SPACE) && !isJumping) {
-        isJumping = true;
+    if ((IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_W)) && !isJumping) {
         jumpRate = 2000;
+        isJumping = true;
     }
 
     // if character is jumping change y pos
@@ -43,5 +46,16 @@ void Player::Jump(float dt) {
     if (isJumping && posY >= jumpHeight) {
         jumpRate -= 100;
         posY -= jumpRate * dt;
+    }
+}
+
+// Handle player crouch on keypress
+void Player::Crouch(float dt) {
+    using namespace std::this_thread;
+    using namespace std::chrono_literals;
+    // Listen for key to set jumpRate and isJumping
+    if ((IsKeyPressed(KEY_LEFT_SHIFT) || IsKeyPressed(KEY_S)) && !isCrouching) {
+        isCrouching = true;
+        Object::color = RED;
     }
 }
