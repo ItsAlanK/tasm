@@ -48,12 +48,26 @@ void Player::Jump(float dt) {
     }
 }
 
-// Handle player crouch on keypress
-void Player::Crouch(float dt) {
-    // Listen for key to set jumpRate and isJumping
+/**
+ * Handle crouching in key hold and release
+ * Takes init Y, width and height for player to set new ones relative
+ * to initial state and not continually adding/subtracting with each game loop
+ * Key released used instead of else statement to not overwrite Y position contantly which breaks jump
+*/
+void Player::Crouch(float initY, float initWidth, float initHeight) {
+    // Listen for key to set crouch sizes and pos
     if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_S)) {
-        width = width * 2;
-    } else {
-        Object::color = BLUE;
+        isCrouching = true;
+        width = initWidth * 2;
+        posY = initY + initWidth;
+        height = initHeight / 2;
     }
+    
+    if (IsKeyReleased(KEY_LEFT_SHIFT) || IsKeyDown(KEY_S)) {
+        isCrouching = false;
+        width = initWidth;
+        height = initHeight;
+        posY = initY;
+    }
+
 }
