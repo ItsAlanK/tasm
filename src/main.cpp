@@ -29,7 +29,7 @@ int main(){
 
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
 
-    // Init Obstacles
+    // Init Array of obstacles
     Obstacle obsList[obstacleCount];
     for (int i = 0; i < obstacleCount; i++) {
         // Random Boolean taken from https://stackoverflow.com/questions/43329352/generating-random-boolean
@@ -64,6 +64,8 @@ int main(){
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
         myPlayer.Draw();
+
+        // Loop through array of obstacles to draw and move them across screen
         for (int i = 0; i < obstacleCount; i++){
             obsList[i].Draw();
             obsList[i].Update();
