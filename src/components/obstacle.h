@@ -13,6 +13,7 @@ class Obstacle: public Object {
         int baseSpeed;
         
     public:
+        Obstacle();
         Obstacle(int x, int y, int width, int height, Color color);
         void Draw();
         void Update();
