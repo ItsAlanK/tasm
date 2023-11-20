@@ -9,11 +9,13 @@ class Obstacle: public Object {
     private: 
         int width;
         int height;
+        int obstacleCount;
         int baseSpeed;
         
     public:
         Obstacle(int x, int y, int width, int height, Color color);
         void Draw();
+        void Update();
 };
 
 #endif

@@ -47,6 +47,7 @@ int main(){
         ClearBackground(LIGHTGRAY);
         myPlayer.Draw();
         myObstacle.Draw();
+        myObstacle.Update();
         EndDrawing();
     }
 
