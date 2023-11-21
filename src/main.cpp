@@ -6,6 +6,7 @@
 
 
 // Animation struct taken from class example
+
 struct Anim {
     Rectangle rec;
     Vector2 pos;
