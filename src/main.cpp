@@ -5,6 +5,7 @@
 #include "components/obstacle.h"
 
 
+// Animation struct taken from class example
 struct Anim {
     Rectangle rec;
     Vector2 pos;
@@ -38,7 +39,11 @@ int main(){
 
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
 
-    // Test adding texture
+    /**
+     * Loading texture for animtation using anim struct. 
+     * For now works here but cant refactor into player.cpp where it should live
+     * 
+    */
     Vector2 position{(float)(playerPosX), (float)(playerPosY)};
     Texture2D playerTexture = LoadTexture("src/resources/textures/tasm-run-cycle.png");
 
@@ -88,8 +93,12 @@ int main(){
 
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
-        //myPlayer.Draw();
+        // myPlayer.Draw();
 
+        /**
+         * Running animation for character
+         * Works off running bool so animations can be changed later for other actions
+        */
         if(running) {
             playerAnim.rec.width = playerTexture.width/6;
             playerAnim.runningTime += deltaTime;
@@ -103,6 +112,21 @@ int main(){
                 }
             }
         }
+
+        // Change texture for player on crouch
+        if (myPlayer.isCrouching){
+            playerAnim.rec.width = playerHeight;
+            playerAnim.rec.height = playerWidth;
+            playerTexture = LoadTexture("src/resources/textures/crouch.png");
+        } else {
+            playerAnim.rec.width = playerTexture.width/6;
+            playerAnim.rec.height = playerTexture.height;
+            playerTexture = LoadTexture("src/resources/textures/tasm-run-cycle.png");
+        }
+
+        // track animation to player hitbox
+        playerAnim.pos.x = myPlayer.posX;
+        playerAnim.pos.y = myPlayer.posY;
 
         DrawTextureRec(playerTexture, playerAnim.rec, playerAnim.pos, WHITE);
 

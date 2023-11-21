@@ -7,9 +7,9 @@
 ### Required Features ###
 
 - [X] Opens a window 
-- [ ] Has Sprites/3D Models: Includes textures, shapes, shaders, 3D models 
+- [X] Has Sprites/3D Models: Includes textures, shapes, shaders, 3D models 
 - [X] Capable of user input: Game controller, mouse input, keyboard input, use of camera 
-- [ ] Sprites/3D Models capable of: Movement, animation, collisions 
+- [X] Sprites/3D Models capable of: Movement, animation, collisions 
 - [ ] Plays audio: Background audio or individual audio clips 
 - [ ] Includes text: Load different fonts 
 - [X] Uses git/github source control
