@@ -12,8 +12,8 @@
 - [ ] Sprites/3D Models capable of: Movement, animation, collisions 
 - [ ] Plays audio: Background audio or individual audio clips 
 - [ ] Includes text: Load different fonts 
-- [ ] Uses git/github source control
-- [ ] Use of header and source files
+- [X] Uses git/github source control
+- [X] Use of header and source files
 
 ### Additional Feature Targets ###
 
