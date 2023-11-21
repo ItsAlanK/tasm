@@ -4,9 +4,14 @@
 #include "components/player.h"
 #include "components/obstacle.h"
 
-#include <string>
 
-using namespace std;
+struct Anim {
+    Rectangle rec;
+    Vector2 pos;
+    int frame;
+    float updateTime;
+    float runningTime;
+};
 
 
 int main(){
@@ -15,11 +20,6 @@ int main(){
     const int windowHeight{960};
     
     InitWindow(windowWidth,windowHeight,"TASM");
-
-    // Test adding texture
-    Vector2 position{0.0f, 0.0f};
-    Texture2D playerTexture = LoadTexture("src/resources/textures/tasm-run-cycle.png");
-    Rectangle sourceRec = (Rectangle){0.0f, 0.0f, (float)(playerTexture.width)/6, (float)(playerTexture.height)};
 
     //Set Game params
     int obstacleCount{10}; // No.  of obstacles in game
@@ -37,6 +37,22 @@ int main(){
     int lowObsY{(playerPosY + playerHeight) - obstacleHeight}; // Grounded obstacle Y position
 
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
+
+    // Test adding texture
+    Vector2 position{(float)(playerPosX), (float)(playerPosY)};
+    Texture2D playerTexture = LoadTexture("src/resources/textures/tasm-run-cycle.png");
+
+    Anim playerAnim;
+    playerAnim.rec.width = playerTexture.width/6;
+    playerAnim.rec.height = playerTexture.height;
+    playerAnim.rec.x = 0;
+    playerAnim.rec.y = 0;
+    playerAnim.pos = position;
+    playerAnim.frame = 0;
+    playerAnim.updateTime = 1.0/12.0;
+    playerAnim.runningTime = 0.0;
+
+    bool running{true};
 
     // Init Array of obstacles
     Obstacle obsList[obstacleCount];
@@ -71,9 +87,24 @@ int main(){
         myPlayer.Crouch(playerPosX, playerPosY, playerWidth, playerHeight);
 
         BeginDrawing();
-        DrawTextureRec(playerTexture, sourceRec, position, WHITE);
         ClearBackground(LIGHTGRAY);
-        myPlayer.Draw();
+        //myPlayer.Draw();
+
+        if(running) {
+            playerAnim.rec.width = playerTexture.width/6;
+            playerAnim.runningTime += deltaTime;
+
+            if (playerAnim.runningTime >= playerAnim.updateTime){
+                playerAnim.runningTime = 0.0;
+                playerAnim.rec.x = playerAnim.frame * playerAnim.rec.width;
+                playerAnim.frame ++;
+                if (playerAnim.frame>5) {
+                    playerAnim.frame = 0;
+                }
+            }
+        }
+
+        DrawTextureRec(playerTexture, playerAnim.rec, playerAnim.pos, WHITE);
 
         // Loop through array of obstacles to draw and move them across screen
         for (int i = 0; i < obstacleCount; i++){
