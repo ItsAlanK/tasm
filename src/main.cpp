@@ -4,6 +4,10 @@
 #include "components/player.h"
 #include "components/obstacle.h"
 
+#include <string>
+
+using namespace std;
+
 
 int main(){
     // Set window size
@@ -11,6 +15,11 @@ int main(){
     const int windowHeight{960};
     
     InitWindow(windowWidth,windowHeight,"TASM");
+
+    // Test adding texture
+    Vector2 position{0.0f, 0.0f};
+    Texture2D playerTexture = LoadTexture("src/resources/textures/tasm-run-cycle.png");
+    Rectangle sourceRec = (Rectangle){0.0f, 0.0f, (float)(playerTexture.width)/6, (float)(playerTexture.height)};
 
     //Set Game params
     int obstacleCount{10}; // No.  of obstacles in game
@@ -62,6 +71,7 @@ int main(){
         myPlayer.Crouch(playerPosX, playerPosY, playerWidth, playerHeight);
 
         BeginDrawing();
+        DrawTextureRec(playerTexture, sourceRec, position, WHITE);
         ClearBackground(LIGHTGRAY);
         myPlayer.Draw();
 
@@ -72,6 +82,6 @@ int main(){
         }
         EndDrawing();
     }
-
+    UnloadTexture(playerTexture);
     CloseWindow();
 }
