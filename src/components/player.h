@@ -15,6 +15,8 @@ class Player: public Object {
         
     public:
         Rectangle hitbox;
+        Sound jump;
+        Sound crouch;
         bool isJumping;
         bool isCrouching;
         bool collision;

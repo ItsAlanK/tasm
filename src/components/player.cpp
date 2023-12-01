@@ -10,7 +10,9 @@ Player::Player(int x, int y, int width, int height, Color color)
     gravity(500),
     isJumping(false),
     isCrouching(false),
-    collision(false)
+    collision(false),
+    jump(LoadSound("src/resources/sounds/jump.wav")),
+    crouch(LoadSound("src/resources/sounds/crouch.wav"))
     {}
 
 // Draw object to screen
@@ -41,6 +43,7 @@ void Player::Jump(float dt) {
     if ((IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_W)) && !isJumping) {
         jumpRate = 2000;
         isJumping = true;
+        PlaySound(jump);
     }
 
     // if character is jumping change y pos
@@ -60,6 +63,10 @@ void Player::Jump(float dt) {
 */
 void Player::Crouch(float initX, float initY, float initWidth, float initHeight) {
     // Listen for key to set crouch sizes and pos
+    if(IsKeyPressed(KEY_LEFT_SHIFT) || IsKeyPressed(KEY_S)){
+        PlaySound(crouch);
+    }
+
     if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_S)) {
         isCrouching = true;
         width = initWidth * 2;

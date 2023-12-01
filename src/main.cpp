@@ -9,6 +9,8 @@
 
 int main(){
     InitWindow(windowWidth,windowHeight,"TASM");
+    InitAudioDevice();
+    void SetMasterVolume(float volume); 
 
     // Init Player object
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
