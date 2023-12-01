@@ -31,6 +31,10 @@ int main(){
 
     // Init Player object
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
+    myPlayer.hitbox.x = playerPosX;
+    myPlayer.hitbox.y = playerPosY;
+    myPlayer.hitbox.width = playerWidth;
+    myPlayer.hitbox.height = playerHeight;
 
     /**
      * Loading texture for animation using anim struct. 
@@ -59,10 +63,14 @@ int main(){
         // Gives true or false to set obstacle to high or low
         bool randomizeObstacles = 0 + (rand() % (1 - 0 + 1)) == 1;
         if (randomizeObstacles){ // Set obstacles to high or low randomly
-            obsList[i] = Obstacle(windowWidth + (500 * i), highObsY, 80, 40, RED);
+            obsList[i] = Obstacle(windowWidth + (500 * i), highObsY, obstacleWidth, obstacleHeight, RED);
         } else {
-            obsList[i] = Obstacle(windowWidth + (500 * i), lowObsY, 80, 40, RED);
+            obsList[i] = Obstacle(windowWidth + (500 * i), lowObsY, obstacleWidth, obstacleHeight, RED);
         }
+        obsList[i].hitbox.x = obsList[i].posX;
+        obsList[i].hitbox.y = obsList[i].posY;
+        obsList[i].hitbox.width = obstacleWidth;
+        obsList[i].hitbox.height = obstacleHeight;
     }
 
     // Set FPS
@@ -127,6 +135,9 @@ int main(){
         for (int i = 0; i < obstacleCount; i++){
             obsList[i].Draw();
             obsList[i].Update();
+            if(CheckCollisionRecs(myPlayer.hitbox, obsList[i].hitbox)){
+                break;
+            }
         }
         
         EndDrawing();

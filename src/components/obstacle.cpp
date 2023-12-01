@@ -27,4 +27,5 @@ void Obstacle::Draw(){
 
 void Obstacle::Update() {
     posX -= baseSpeed;
+    hitbox.x = posX;
 }

@@ -24,9 +24,11 @@ void Player::Draw(){
  * Uses delta time to keep speed consistent
  * Take intitial Player Y position since it is derived from window size in main
 */
+
 void Player::Apply_Gravity(float dt, int initY) {
     if (isJumping && posY < initY) {
         posY += gravity * dt;
+        hitbox.y = posY;
     } else {
         jumpRate = 0;
         isJumping = false;
@@ -46,6 +48,7 @@ void Player::Jump(float dt) {
     if (isJumping && posY >= jumpHeight) {
         jumpRate -= 100;
         posY -= jumpRate * dt;
+        hitbox.y = posY;
     }
 }
 
@@ -63,6 +66,10 @@ void Player::Crouch(float initX, float initY, float initWidth, float initHeight)
         posX = initX - initWidth;
         posY = initY + initWidth;
         height = initHeight / 2;
+        hitbox.x = posX;
+        hitbox.y = posY;
+        hitbox.width = width;
+        hitbox.height = height;
     }
     
     if (IsKeyReleased(KEY_LEFT_SHIFT) || IsKeyDown(KEY_S)) {
@@ -71,6 +78,10 @@ void Player::Crouch(float initX, float initY, float initWidth, float initHeight)
         height = initHeight;
         posX = initX;
         posY = initY;
+        hitbox.x = posX;
+        hitbox.y = posY;
+        hitbox.width = width;
+        hitbox.height = height;
     }
 
 }

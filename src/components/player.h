@@ -14,6 +14,7 @@ class Player: public Object {
         const int gravity;
         
     public:
+        Rectangle hitbox;
         bool isJumping;
         bool isCrouching;
         bool collision;
