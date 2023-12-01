@@ -6,17 +6,6 @@
 #include "components/animation.h"
 
 
-// Animation struct taken from class example
-
-// struct Anim {
-//     Rectangle rec;
-//     Vector2 pos;
-//     int frame;
-//     float updateTime;
-//     float runningTime;
-// };
-
-
 int main(){
     // Set window size
     const int windowWidth{960};
@@ -39,10 +28,12 @@ int main(){
     int highObsY{playerPosY}; // Flying obstacle Y position
     int lowObsY{(playerPosY + playerHeight) - obstacleHeight}; // Grounded obstacle Y position
 
+
+    // Init Player object
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
 
     /**
-     * Loading texture for animtation using anim struct. 
+     * Loading texture for animation using anim struct. 
      * For now works here but cant refactor into player.cpp where it should live
      * 
     */
