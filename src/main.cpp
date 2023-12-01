@@ -1,5 +1,6 @@
 #include <iostream>
 #include "raylib.h"
+#include "raymath.h"
 #include "components/setupParams.h"
 #include "components/menus.h"
 #include "components/base_object.h"
@@ -74,7 +75,15 @@ int main(){
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
 
-        DrawTextEx(customFont, title, (Vector2){ windowWidth/2, 20}, customFont.baseSize, 2, DARKGRAY);
+        // Draw title menu
+        DrawRectangle(100, 250, windowWidth - 200, windowHeight - 500, DARKGRAY);
+        // Center text by getting size of text and divide by 2 to subtract from position
+        // relative to window size
+        Vector2 titleSize{MeasureTextEx(customFont, title, customFont.baseSize, 2)};
+        titleSize = Vector2Scale(titleSize, 0.5);
+        Vector2 titlePos{windowWidth/2, windowHeight - 600};
+        Vector2 finalPos = Vector2Subtract(titlePos, titleSize);
+        DrawTextEx(customFont, title, finalPos, customFont.baseSize, 2, WHITE);
 
         
         if(alive){
