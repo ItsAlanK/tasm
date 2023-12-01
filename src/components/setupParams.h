@@ -11,7 +11,7 @@ const int windowHeight{960};
 // Game Params
 int obstacleCount{10}; // No.  of obstacles in game
 bool alive{true};
-float volume{0.5};
+float volume{0.01};
 
 // Set Player params (could include consts in Player class later)
 const int playerWidth{80};

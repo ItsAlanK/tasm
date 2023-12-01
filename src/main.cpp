@@ -69,18 +69,18 @@ int main(){
 
         const float deltaTime{GetFrameTime()};
 
-        // Impose gravity on player
-        myPlayer.Apply_Gravity(deltaTime, playerPosY);
-
-        // listen for inputs
-        myPlayer.Jump(deltaTime);
-        myPlayer.Crouch(playerPosX, playerPosY, playerWidth, playerHeight);
-
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
 
         
         if(alive){
+            // Impose gravity on player
+            myPlayer.Apply_Gravity(deltaTime, playerPosY);
+
+            // listen for inputs
+            myPlayer.Jump(deltaTime);
+            myPlayer.Crouch(playerPosX, playerPosY, playerWidth, playerHeight);
+
             /**
             * Running animation for character
             * Works off running bool so animations can be changed later for other actions
@@ -129,5 +129,7 @@ int main(){
         EndDrawing();
     }
     UnloadTexture(playerTexture);
+    UnloadSound(myPlayer.jump);
+    UnloadSound(myPlayer.crouch);
     CloseWindow();
 }
