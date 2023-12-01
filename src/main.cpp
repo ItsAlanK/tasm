@@ -49,13 +49,14 @@ int main(){
     playerAnim.frame = 0;
     playerAnim.updateTime = 1.0/12.0;
     playerAnim.runningTime = 0.0;
+    playerAnim.isRunning = true;
 
-    bool running{true};
 
     // Init Array of obstacles
     Obstacle obsList[obstacleCount];
     for (int i = 0; i < obstacleCount; i++) {
         // Random Boolean taken from https://stackoverflow.com/questions/43329352/generating-random-boolean
+        // Gives true or false to set obstacle to high or low
         bool randomizeObstacles = 0 + (rand() % (1 - 0 + 1)) == 1;
         if (randomizeObstacles){ // Set obstacles to high or low randomly
             obsList[i] = Obstacle(windowWidth + (500 * i), highObsY, 80, 40, RED);
@@ -86,13 +87,12 @@ int main(){
 
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
-        // myPlayer.Draw();
 
         /**
          * Running animation for character
          * Works off running bool so animations can be changed later for other actions
         */
-        if(running) {
+        if(playerAnim.isRunning) {
             playerAnim.rec.width = playerTexture.width/6;
             playerAnim.runningTime += deltaTime;
 

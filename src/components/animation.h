@@ -10,6 +10,7 @@ struct Anim {
     int frame;
     float updateTime;
     float runningTime;
+    bool isRunning;
 };
 
 #endif
