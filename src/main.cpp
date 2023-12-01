@@ -3,17 +3,18 @@
 #include "components/base_object.h"
 #include "components/player.h"
 #include "components/obstacle.h"
+#include "components/animation.h"
 
 
 // Animation struct taken from class example
 
-struct Anim {
-    Rectangle rec;
-    Vector2 pos;
-    int frame;
-    float updateTime;
-    float runningTime;
-};
+// struct Anim {
+//     Rectangle rec;
+//     Vector2 pos;
+//     int frame;
+//     float updateTime;
+//     float runningTime;
+// };
 
 
 int main(){
@@ -136,6 +137,7 @@ int main(){
             obsList[i].Draw();
             obsList[i].Update();
         }
+        
         EndDrawing();
     }
     UnloadTexture(playerTexture);

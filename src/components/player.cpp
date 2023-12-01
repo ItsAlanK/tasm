@@ -9,7 +9,8 @@ Player::Player(int x, int y, int width, int height, Color color)
     jumpRate(0),
     gravity(500),
     isJumping(false),
-    isCrouching(false)
+    isCrouching(false),
+    collision(false)
     {}
 
 // Draw object to screen

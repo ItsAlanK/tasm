@@ -16,6 +16,7 @@ class Player: public Object {
     public:
         bool isJumping;
         bool isCrouching;
+        bool collision;
         Player(int x, int y, int width, int height, Color color);
 
         void Draw();
