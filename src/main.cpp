@@ -1,6 +1,7 @@
 #include <iostream>
 #include "raylib.h"
 #include "components/setupParams.h"
+#include "components/menus.h"
 #include "components/base_object.h"
 #include "components/player.h"
 #include "components/obstacle.h"
@@ -10,7 +11,8 @@
 int main(){
     InitWindow(windowWidth,windowHeight,"TASM");
     InitAudioDevice();
-    void SetMasterVolume(float volume); 
+    void SetMasterVolume(float volume);
+    Font customFont = LoadFont("src/resources/fonts/font.otf");
 
     // Init Player object
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
@@ -72,6 +74,8 @@ int main(){
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
 
+        DrawTextEx(customFont, title, (Vector2){ windowWidth/2, 20}, customFont.baseSize, 2, DARKGRAY);
+
         
         if(alive){
             // Impose gravity on player
@@ -131,5 +135,6 @@ int main(){
     UnloadTexture(playerTexture);
     UnloadSound(myPlayer.jump);
     UnloadSound(myPlayer.crouch);
+    UnloadFont(customFont);
     CloseWindow();
 }

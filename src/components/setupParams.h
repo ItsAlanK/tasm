@@ -1,8 +1,6 @@
 #ifndef SETUP_H
 #define SETUP_H
 
-#include "raylib.h"
-
 
 // Set window size
 const int windowWidth{960};
