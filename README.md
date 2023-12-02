@@ -39,3 +39,6 @@ If cloning the repo you'll need to copy the steps of the starter template to bui
 
 
 ## Credits ##
+
+- [Raylib CMake Starter Template](https://github.com/grplyler/raylib-cmake-starter)
+- Sounds created using [fFXGen](https://raylibtech.itch.io/rfxgen)
