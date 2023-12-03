@@ -114,7 +114,8 @@ int main(){
     Obstacle obsList[obstacleCount];
     randomizeObstacles(obsList);
 
-    Texture2D obstacleTexture = LoadTexture("src/resources/textures/obstacle-high.png");
+    Texture2D obstacleTextureHigh = LoadTexture("src/resources/textures/obstacle-high.png");
+    Texture2D obstacleTextureLow = LoadTexture("src/resources/textures/obstacle-low.png");
 
     // Init Power up
     Power powerUp;
@@ -302,7 +303,12 @@ int main(){
             for (int i = 0; i < obstacleCount; i++){
                 // obsList[i].Draw();
                 obsList[i].Update();
-                DrawTexture(obstacleTexture, obsList[i].posX, obsList[i].posY, WHITE);
+                if (obsList[i].posY == highObsY){
+                    DrawTexture(obstacleTextureHigh, obsList[i].posX, obsList[i].posY, WHITE);
+                } else {
+                    DrawTexture(obstacleTextureLow, obsList[i].posX, obsList[i].posY, WHITE);
+                }
+                
                 // Collision detection
                 if(CheckCollisionRecs(myPlayer.hitbox, obsList[i].hitbox)){
                     if (!myPlayer.invincible){
@@ -327,7 +333,8 @@ int main(){
         EndDrawing();
     }
     UnloadTexture(playerTexture);
-    UnloadTexture(obstacleTexture);
+    UnloadTexture(obstacleTextureHigh);
+    UnloadTexture(obstacleTextureLow);
     UnloadTexture(bgTexture1);
     UnloadTexture(bgTexture2);
     UnloadTexture(groundTexture1);
