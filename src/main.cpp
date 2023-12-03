@@ -7,6 +7,7 @@
 #include "components/player.h"
 #include "components/obstacle.h"
 #include "components/animation.h"
+#include "components/powerUp.h"
 
 
 // These vars used to work in header file but compiler suddenly
@@ -32,6 +33,8 @@ int level{1};
 int frames{0}; //Counts frames invincible player is colliding w/ object
 int timer{0};
 int score{0};
+int powerUpOdds{0};
+bool powerUpAvail{false};
 
 // Obstacle Params
 int highObsY{playerPosY}; // Flying obstacle Y position
@@ -110,6 +113,11 @@ int main(){
     // Init Array of obstacles
     Obstacle obsList[obstacleCount];
     randomizeObstacles(obsList);
+
+    // Init Power up
+    Power powerUp;
+    powerUp.posX = windowWidth;
+    powerUp.color = BLUE;
 
     // MENU VARIABLES (LIVES HERE TO ACCESS FONTS)
     // Center text by getting size of text and divide by 2 to subtract from position
@@ -259,14 +267,31 @@ int main(){
             DrawTextureRec(playerTexture, playerAnim.rec, playerAnim.pos, playerTint);
 
             // Invincibility
-            if (IsKeyPressed(KEY_G)){
-                myPlayer.invincible = true;
-            }
-
             if (myPlayer.invincible) {
                 playerTint = YELLOW;
+                powerUpAvail = false;
+                powerUp.posX = windowWidth;
+                powerUpOdds = 0;
             } else {
                 playerTint = WHITE;
+                // Randomly spawns powerup. Odds increase with score.
+                if ((rand() % 100) < 0.1 * powerUpOdds/100) {
+                    powerUpAvail = true;
+                };
+            }
+
+            
+
+            // Listen for power up becoming available to draw to screen and enable button press to activate
+            if (powerUpAvail) {
+                powerUp.Draw();
+                powerUp.Update();
+                myPlayer.invincible = powerUp.Activate(myPlayer.invincible);
+                if (powerUp.posX <= -100) {
+                    powerUpAvail = false;
+                    powerUp.posX = windowWidth;
+                    powerUpOdds = 0;
+                }
             }
 
             // Loop through array of obstacles to draw and move them across screen
@@ -289,6 +314,7 @@ int main(){
                 }
                 if(obsList[i].posX == myPlayer.posX - obstacleWidth) {
                     score ++;
+                    powerUpOdds ++;
                 }
             }
        }
