@@ -119,7 +119,7 @@ int main(){
     // Init Power up
     Power powerUp;
     powerUp.posX = windowWidth;
-    powerUp.color = BLUE;
+    powerUp.color = Color{225, 211, 168, 255};
 
     // MENU VARIABLES (LIVES HERE TO ACCESS FONTS)
     // Center text by getting size of text and divide by 2 to subtract from position
@@ -171,6 +171,7 @@ int main(){
             DrawTextEx(titleFont, title, finalPos, 40, 4, WHITE);
             DrawTextEx(bodyFont, buttonText, finalBtnPos, 50, 2, playBtnColor);
 
+
             mousePoint = GetMousePosition();
             
             // Button logic from Raylib Example: https://www.raylib.com/examples/textures/loader.html?name=textures_sprite_button
@@ -199,7 +200,7 @@ int main(){
 
             // Draw Score to screen
             // DrawText(TextFormat("%d", frames), 40, 40, 100, RED);
-            DrawText(TextFormat("%d", score), 100, 100, 100, RED);
+            DrawText(TextFormat("%d", score), 100, 100, 100, RAYWHITE);
 
 
             // Scroll Bg textures
@@ -288,6 +289,7 @@ int main(){
             if (powerUpAvail) {
                 powerUp.Draw();
                 powerUp.Update();
+                powerUp.Key(powerUp.posX, powerUp.posY);
                 myPlayer.invincible = powerUp.Activate(myPlayer.invincible);
                 if (powerUp.posX <= -100) {
                     powerUpAvail = false;

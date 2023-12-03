@@ -9,6 +9,7 @@ class Power: public Obstacle {
 
         Power();
         bool Activate(bool invincibility);
+        void Key(int posx, int posY);
 };
 
 #endif
