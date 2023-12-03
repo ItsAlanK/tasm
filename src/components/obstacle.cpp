@@ -1,3 +1,4 @@
+#include "setupParams.h"
 #include "obstacle.h"
 #include <thread>
 

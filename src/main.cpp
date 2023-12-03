@@ -84,7 +84,6 @@ int main(){
 
     Rectangle playBtn{windowWidth/2 - 150, windowHeight - 500, 300, 100};
     Vector2 mousePoint = { 0.0f, 0.0f };
-    int btnState = 0;
 
     // Set FPS
     SetTargetFPS(60);
@@ -127,16 +126,13 @@ int main(){
             {
                 playBtnColor = LIGHTGRAY;
                 if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-                    btnState = 2;
                     playBtnColor = RAYWHITE;
                 }
-                else btnState = 1;
 
                 if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) alive = true;
             }
             else {
                 playBtnColor = WHITE;
-                btnState = 0;
             }
         }
 
@@ -211,6 +207,7 @@ int main(){
             for (int i = 0; i < obstacleCount; i++){
                 obsList[i].Draw();
                 obsList[i].Update();
+                // Collision detection
                 if(CheckCollisionRecs(myPlayer.hitbox, obsList[i].hitbox)){
                     randomizeObstacles(obsList);
                     buttonText = "Try Again";

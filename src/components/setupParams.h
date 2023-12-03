@@ -15,6 +15,7 @@ int obstacleCount{20}; // No.  of obstacles in game
 bool menu{true};
 bool alive{false};
 float volume{0.01};
+int level{2};
 
 // Set Player params (could include consts in Player class later)
 const int playerWidth{80};
