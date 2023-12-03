@@ -2,6 +2,7 @@
 #include "obstacle.h"
 #include <thread>
 
+
 Obstacle::Obstacle()
     :Object(200, 100, RED),
     width(100),
