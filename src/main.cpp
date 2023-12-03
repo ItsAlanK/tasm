@@ -9,6 +9,23 @@
 #include "components/animation.h"
 
 
+void randomizeObstacles(Obstacle obsList[]) {
+    for (int i = 0; i < obstacleCount; i++) {
+        // Random Boolean taken from https://stackoverflow.com/questions/43329352/generating-random-boolean
+        // Gives true or false to set obstacle to high or low
+        bool randomizeObstacles = 0 + (rand() % (1 - 0 + 1)) == 1;
+        if (randomizeObstacles){ // Set obstacles to high or low randomly
+            obsList[i] = Obstacle(windowWidth + (500 * i), highObsY, obstacleWidth, obstacleHeight, RED);
+        } else {
+            obsList[i] = Obstacle(windowWidth + (500 * i), lowObsY, obstacleWidth, obstacleHeight, RED);
+        }
+        obsList[i].hitbox.x = obsList[i].posX;
+        obsList[i].hitbox.y = obsList[i].posY;
+        obsList[i].hitbox.width = obstacleWidth;
+        obsList[i].hitbox.height = obstacleHeight;
+    }
+}
+
 int main(){
     InitWindow(windowWidth,windowHeight,"TASM");
     InitAudioDevice();
@@ -45,20 +62,7 @@ int main(){
 
     // Init Array of obstacles
     Obstacle obsList[obstacleCount];
-    for (int i = 0; i < obstacleCount; i++) {
-        // Random Boolean taken from https://stackoverflow.com/questions/43329352/generating-random-boolean
-        // Gives true or false to set obstacle to high or low
-        bool randomizeObstacles = 0 + (rand() % (1 - 0 + 1)) == 1;
-        if (randomizeObstacles){ // Set obstacles to high or low randomly
-            obsList[i] = Obstacle(windowWidth + (500 * i), highObsY, obstacleWidth, obstacleHeight, RED);
-        } else {
-            obsList[i] = Obstacle(windowWidth + (500 * i), lowObsY, obstacleWidth, obstacleHeight, RED);
-        }
-        obsList[i].hitbox.x = obsList[i].posX;
-        obsList[i].hitbox.y = obsList[i].posY;
-        obsList[i].hitbox.width = obstacleWidth;
-        obsList[i].hitbox.height = obstacleHeight;
-    }
+    randomizeObstacles(obsList);
 
     // MENU VARIABLES (LIVES HERE TO ACCESS FONTS)
     // Center text by getting size of text and divide by 2 to subtract from position
@@ -93,6 +97,7 @@ int main(){
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
 
+        // Allows Main menu to clear when game is started
         if (alive) {
             menu = false;
         }
@@ -174,6 +179,8 @@ int main(){
                 obsList[i].Draw();
                 obsList[i].Update();
                 if(CheckCollisionRecs(myPlayer.hitbox, obsList[i].hitbox)){
+                    randomizeObstacles(obsList);
+                    menu = true;
                     alive = false;
                 }
             }
