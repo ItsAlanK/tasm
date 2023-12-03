@@ -7,7 +7,6 @@
 #include "components/player.h"
 #include "components/obstacle.h"
 #include "components/animation.h"
-#include "components/button.h"
 
 
 int main(){
@@ -91,12 +90,26 @@ int main(){
         Vector2 buttonPos{windowWidth/2, windowHeight - 450};
         Vector2 finalBtnPos = Vector2Subtract(buttonPos, buttonSize);
 
+        DrawRectangle(windowWidth/2 - 150, windowHeight - 500, 300, 100, RED);
+
         DrawTextEx(titleFont, title, finalPos, 40, 4, WHITE);
         DrawTextEx(bodyFont, buttonText, finalBtnPos, 50, 2, WHITE);
 
-        Button playBtn;
-
+        Rectangle playBtn{windowWidth/2 - 150, windowHeight - 500, 300, 100};
+        Vector2 mousePoint = { 0.0f, 0.0f };
+        int btnState = 0;
+        mousePoint = GetMousePosition();
         
+        // Button logic from Raylib Example: https://www.raylib.com/examples/textures/loader.html?name=textures_sprite_button
+        if (CheckCollisionPointRec(mousePoint, playBtn))
+        {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) btnState = 2;
+            else btnState = 1;
+
+            if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) alive = true;
+        }
+        else btnState = 0;
+
         if(alive){
             // Impose gravity on player
             myPlayer.Apply_Gravity(deltaTime, playerPosY);
