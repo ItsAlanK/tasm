@@ -7,13 +7,15 @@
 #include "components/player.h"
 #include "components/obstacle.h"
 #include "components/animation.h"
+#include "components/button.h"
 
 
 int main(){
     InitWindow(windowWidth,windowHeight,"TASM");
     InitAudioDevice();
     void SetMasterVolume(float volume);
-    Font customFont = LoadFont("src/resources/fonts/font.otf");
+    Font titleFont = LoadFont("src/resources/fonts/daydream.ttf");
+    Font bodyFont = LoadFont("src/resources/fonts/retro-gaming.ttf");
 
     // Init Player object
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
@@ -79,11 +81,20 @@ int main(){
         DrawRectangle(100, 250, windowWidth - 200, windowHeight - 500, DARKGRAY);
         // Center text by getting size of text and divide by 2 to subtract from position
         // relative to window size
-        Vector2 titleSize{MeasureTextEx(customFont, title, customFont.baseSize, 2)};
+        Vector2 titleSize{MeasureTextEx(titleFont, title, 40, 4)};
         titleSize = Vector2Scale(titleSize, 0.5);
         Vector2 titlePos{windowWidth/2, windowHeight - 600};
         Vector2 finalPos = Vector2Subtract(titlePos, titleSize);
-        DrawTextEx(customFont, title, finalPos, customFont.baseSize, 2, WHITE);
+
+        Vector2 buttonSize{MeasureTextEx(bodyFont, buttonText, 50, 2)};
+        buttonSize = Vector2Scale(buttonSize, 0.5);
+        Vector2 buttonPos{windowWidth/2, windowHeight - 450};
+        Vector2 finalBtnPos = Vector2Subtract(buttonPos, buttonSize);
+
+        DrawTextEx(titleFont, title, finalPos, 40, 4, WHITE);
+        DrawTextEx(bodyFont, buttonText, finalBtnPos, 50, 2, WHITE);
+
+        Button playBtn;
 
         
         if(alive){
@@ -144,6 +155,7 @@ int main(){
     UnloadTexture(playerTexture);
     UnloadSound(myPlayer.jump);
     UnloadSound(myPlayer.crouch);
-    UnloadFont(customFont);
+    UnloadFont(titleFont);
+    UnloadFont(bodyFont);
     CloseWindow();
 }

@@ -1,7 +1,7 @@
 #ifndef SETUP_H
 #define SETUP_H
 
-
+// SET BASIC GAME VARIABLES AND SETTINGS
 // Set window size
 const int windowWidth{960};
 const int windowHeight{960};
