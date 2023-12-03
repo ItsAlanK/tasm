@@ -29,7 +29,7 @@ bool menu{true};
 bool alive{false};
 float volume{0.01};
 int level{1};
-int frames{0};
+int frames{0}; //Counts frames invincible player is colliding w/ object
 int timer{0};
 int score{0};
 
@@ -59,6 +59,7 @@ void resetGame() {
     menu = true;
     alive = false;
     timer = 0;
+    frames = 0;
     score = 0;
 }
 
@@ -180,13 +181,14 @@ int main(){
 
         if(alive){
             // Count time while alive
-            frames ++;
-            if (frames == 60) {
-                timer ++;
-                frames = 0;
-            }
+            // frames ++;
+            // if (frames == 60) {
+            //     timer ++;
+            //     frames = 0;
+            // }
 
             // Draw Score to screen
+            // DrawText(TextFormat("%d", frames), 40, 40, 100, RED);
             DrawText(TextFormat("%d", score), 100, 100, 100, RED);
 
 
@@ -260,9 +262,11 @@ int main(){
             if (IsKeyPressed(KEY_G)){
                 myPlayer.invincible = true;
             }
-            
+
             if (myPlayer.invincible) {
                 playerTint = YELLOW;
+            } else {
+                playerTint = WHITE;
             }
 
             // Loop through array of obstacles to draw and move them across screen
@@ -275,7 +279,12 @@ int main(){
                         randomizeObstacles(obsList);
                         resetGame();
                     } else {
-                        myPlayer.invincible = false;
+                        // player collides with obstacles for 15 frames. Counts 15 frames before disabling invincibility
+                        frames ++;
+                        if (frames == 15) {
+                            myPlayer.invincible = false;
+                            frames = 0;
+                        }
                     }
                 }
                 if(obsList[i].posX == myPlayer.posX - obstacleWidth) {
