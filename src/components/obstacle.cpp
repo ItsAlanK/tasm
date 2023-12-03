@@ -2,7 +2,7 @@
 #include <thread>
 
 Obstacle::Obstacle()
-    :Object(100, 100, RED),
+    :Object(200, 100, RED),
     width(100),
     height(100),
     obstacleCount(5),

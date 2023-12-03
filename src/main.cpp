@@ -15,9 +15,9 @@ void randomizeObstacles(Obstacle obsList[]) {
         // Gives true or false to set obstacle to high or low
         bool randomizeObstacles = 0 + (rand() % (1 - 0 + 1)) == 1;
         if (randomizeObstacles){ // Set obstacles to high or low randomly
-            obsList[i] = Obstacle(windowWidth + (500 * i), highObsY, obstacleWidth, obstacleHeight, RED);
+            obsList[i] = Obstacle(windowWidth + (800 * i), highObsY, obstacleWidth, obstacleHeight, RED);
         } else {
-            obsList[i] = Obstacle(windowWidth + (500 * i), lowObsY, obstacleWidth, obstacleHeight, RED);
+            obsList[i] = Obstacle(windowWidth + (800 * i), lowObsY, obstacleWidth, obstacleHeight, RED);
         }
         obsList[i].hitbox.x = obsList[i].posX;
         obsList[i].hitbox.y = obsList[i].posY;
@@ -213,6 +213,7 @@ int main(){
                 obsList[i].Update();
                 if(CheckCollisionRecs(myPlayer.hitbox, obsList[i].hitbox)){
                     randomizeObstacles(obsList);
+                    buttonText = "Try Again";
                     menu = true;
                     alive = false;
                 }
