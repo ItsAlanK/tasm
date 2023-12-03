@@ -8,6 +8,7 @@ const int windowHeight{960};
 
 // Game Params
 int obstacleCount{10}; // No.  of obstacles in game
+bool menu{true};
 bool alive{false};
 float volume{0.01};
 

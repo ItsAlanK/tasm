@@ -60,6 +60,23 @@ int main(){
         obsList[i].hitbox.height = obstacleHeight;
     }
 
+    // MENU VARIABLES (LIVES HERE TO ACCESS FONTS)
+    // Center text by getting size of text and divide by 2 to subtract from position
+    // relative to window size
+    Vector2 titleSize{MeasureTextEx(titleFont, title, 40, 4)};
+    titleSize = Vector2Scale(titleSize, 0.5);
+    Vector2 titlePos{windowWidth/2, windowHeight - 600};
+    Vector2 finalPos = Vector2Subtract(titlePos, titleSize);
+
+    Vector2 buttonSize{MeasureTextEx(bodyFont, buttonText, 50, 2)};
+    buttonSize = Vector2Scale(buttonSize, 0.5);
+    Vector2 buttonPos{windowWidth/2, windowHeight - 450};
+    Vector2 finalBtnPos = Vector2Subtract(buttonPos, buttonSize);
+
+    Rectangle playBtn{windowWidth/2 - 150, windowHeight - 500, 300, 100};
+    Vector2 mousePoint = { 0.0f, 0.0f };
+    int btnState = 0;
+
     // Set FPS
     SetTargetFPS(60);
 
@@ -76,39 +93,38 @@ int main(){
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
 
-        // Draw title menu
-        DrawRectangle(100, 250, windowWidth - 200, windowHeight - 500, DARKGRAY);
-        // Center text by getting size of text and divide by 2 to subtract from position
-        // relative to window size
-        Vector2 titleSize{MeasureTextEx(titleFont, title, 40, 4)};
-        titleSize = Vector2Scale(titleSize, 0.5);
-        Vector2 titlePos{windowWidth/2, windowHeight - 600};
-        Vector2 finalPos = Vector2Subtract(titlePos, titleSize);
-
-        Vector2 buttonSize{MeasureTextEx(bodyFont, buttonText, 50, 2)};
-        buttonSize = Vector2Scale(buttonSize, 0.5);
-        Vector2 buttonPos{windowWidth/2, windowHeight - 450};
-        Vector2 finalBtnPos = Vector2Subtract(buttonPos, buttonSize);
-
-        DrawRectangle(windowWidth/2 - 150, windowHeight - 500, 300, 100, RED);
-
-        DrawTextEx(titleFont, title, finalPos, 40, 4, WHITE);
-        DrawTextEx(bodyFont, buttonText, finalBtnPos, 50, 2, WHITE);
-
-        Rectangle playBtn{windowWidth/2 - 150, windowHeight - 500, 300, 100};
-        Vector2 mousePoint = { 0.0f, 0.0f };
-        int btnState = 0;
-        mousePoint = GetMousePosition();
-        
-        // Button logic from Raylib Example: https://www.raylib.com/examples/textures/loader.html?name=textures_sprite_button
-        if (CheckCollisionPointRec(mousePoint, playBtn))
-        {
-            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) btnState = 2;
-            else btnState = 1;
-
-            if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) alive = true;
+        if (alive) {
+            menu = false;
         }
-        else btnState = 0;
+
+        // Draw title menu
+        if (menu){
+            DrawRectangle(100, 250, windowWidth - 200, windowHeight - 500, DARKGRAY);
+            
+            // DrawRectangle(windowWidth/2 - 150, windowHeight - 500, 300, 100, RED); // Visualizes play button bounds
+
+            DrawTextEx(titleFont, title, finalPos, 40, 4, WHITE);
+            DrawTextEx(bodyFont, buttonText, finalBtnPos, 50, 2, playBtnColor);
+
+            mousePoint = GetMousePosition();
+            
+            // Button logic from Raylib Example: https://www.raylib.com/examples/textures/loader.html?name=textures_sprite_button
+            if (CheckCollisionPointRec(mousePoint, playBtn))
+            {
+                playBtnColor = LIGHTGRAY;
+                if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+                    btnState = 2;
+                    playBtnColor = RAYWHITE;
+                }
+                else btnState = 1;
+
+                if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) alive = true;
+            }
+            else {
+                playBtnColor = WHITE;
+                btnState = 0;
+            }
+        }
 
         if(alive){
             // Impose gravity on player
