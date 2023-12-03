@@ -25,7 +25,7 @@ Color playerTint{WHITE};
 
 // Game Params
 int obstacleCount{20}; // No.  of obstacles in game
-int obstacleSpacing{800};
+int obstacleSpacing{600};
 bool menu{true};
 bool alive{false};
 float volume{0.01};
@@ -39,6 +39,16 @@ bool powerUpAvail{false};
 // Obstacle Params
 int highObsY{playerPosY}; // Flying obstacle Y position
 int lowObsY{(playerPosY + playerHeight) - obstacleHeight}; // Grounded obstacle Y position
+
+
+void resetGame() {
+    buttonText = "Try Again";
+    menu = true;
+    alive = false;
+    timer = 0;
+    frames = 0;
+    score = 0;
+}
 
 void randomizeObstacles(Obstacle obsList[]) {
     for (int i = 0; i < obstacleCount; i++) {
@@ -55,15 +65,6 @@ void randomizeObstacles(Obstacle obsList[]) {
         obsList[i].hitbox.width = obstacleWidth;
         obsList[i].hitbox.height = obstacleHeight;
     }
-}
-
-void resetGame() {
-    buttonText = "Try Again";
-    menu = true;
-    alive = false;
-    timer = 0;
-    frames = 0;
-    score = 0;
 }
 
 int main(){
@@ -104,11 +105,6 @@ int main(){
     playerAnim.updateTime = 1.0/12.0;
     playerAnim.runningTime = 0.0;
     playerAnim.isRunning = true;
-
-    if (level == 2){
-        obstacleCount = 30;
-        obstacleSpacing = 500;
-    }
 
     // Init Array of obstacles
     Obstacle obsList[obstacleCount];
@@ -323,10 +319,16 @@ int main(){
                         }
                     }
                 }
-                if(obsList[i].posX == myPlayer.posX - obstacleWidth) {
+                if(obsList[i].posX == 0) {
                     score ++;
                     powerUpOdds ++;
                 }
+            }
+            if (score == obstacleCount) {
+                level ++;
+                resetGame();
+                buttonText = "Go Again?";
+                randomizeObstacles(obsList);
             }
        }
         
