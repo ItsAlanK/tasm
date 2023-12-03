@@ -9,15 +9,40 @@
 #include "components/animation.h"
 
 
+// These vars used to work in header file but compiler suddenly
+// didn't like that and forced me to move them (linker error)
+//Texture positions
+int bgPosX1{0};
+int bgPosX2{3835};
+int groundPosX1{0};
+int groundPosX2{1920};
+
+// Player start position x
+int playerPosX{windowWidth/4 - playerWidth/2};
+
+// Game Params
+int obstacleCount{20}; // No.  of obstacles in game
+int obstacleSpacing{800};
+bool menu{true};
+bool alive{false};
+float volume{0.01};
+int level{1};
+int frames{0};
+int timer{0};
+
+// Obstacle Params
+int highObsY{playerPosY}; // Flying obstacle Y position
+int lowObsY{(playerPosY + playerHeight) - obstacleHeight}; // Grounded obstacle Y position
+
 void randomizeObstacles(Obstacle obsList[]) {
     for (int i = 0; i < obstacleCount; i++) {
         // Random Boolean taken from https://stackoverflow.com/questions/43329352/generating-random-boolean
         // Gives true or false to set obstacle to high or low
         bool randomizeObstacles = 0 + (rand() % (1 - 0 + 1)) == 1;
         if (randomizeObstacles){ // Set obstacles to high or low randomly
-            obsList[i] = Obstacle(windowWidth + (800 * i), highObsY, obstacleWidth, obstacleHeight, RED);
+            obsList[i] = Obstacle(windowWidth + (obstacleSpacing * i), highObsY, obstacleWidth, obstacleHeight, RED);
         } else {
-            obsList[i] = Obstacle(windowWidth + (800 * i), lowObsY, obstacleWidth, obstacleHeight, RED);
+            obsList[i] = Obstacle(windowWidth + (obstacleSpacing * i), lowObsY, obstacleWidth, obstacleHeight, RED);
         }
         obsList[i].hitbox.x = obsList[i].posX;
         obsList[i].hitbox.y = obsList[i].posY;
@@ -64,6 +89,10 @@ int main(){
     playerAnim.runningTime = 0.0;
     playerAnim.isRunning = true;
 
+    if (level == 2){
+            obstacleCount = 30;
+            obstacleSpacing = 500;
+        }
 
     // Init Array of obstacles
     Obstacle obsList[obstacleCount];
@@ -136,7 +165,18 @@ int main(){
             }
         }
 
+
         if(alive){
+            // Count time while alive
+            frames ++;
+            if (frames == 60) {
+                timer ++;
+                frames = 0;
+            }
+
+            DrawText(TextFormat("%d", timer), 100, 100, 100, RED);
+
+
             // Scroll Bg textures
             if (bgPosX1 <= -3840) {
                 bgPosX1 = 3835;

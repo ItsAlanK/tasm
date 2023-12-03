@@ -23,6 +23,8 @@
 
 ## Future Improvements ##
 
+- Prevent crouching while jumping
+- Better measure of difficulty
 
 ## Compiling and Running ##
 
