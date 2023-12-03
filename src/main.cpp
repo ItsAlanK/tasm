@@ -20,6 +20,8 @@ int groundPosX2{1920};
 // Player start position x
 int playerPosX{windowWidth/4 - playerWidth/2};
 
+Color playerTint{WHITE};
+
 // Game Params
 int obstacleCount{20}; // No.  of obstacles in game
 int obstacleSpacing{800};
@@ -67,6 +69,7 @@ int main(){
     Font titleFont = LoadFont("src/resources/fonts/daydream.ttf");
     Font bodyFont = LoadFont("src/resources/fonts/retro-gaming.ttf");
 
+    // World Textures
     Texture2D bgTexture1 = LoadTexture("src/resources/textures/bg.png");
     Texture2D bgTexture2 = LoadTexture("src/resources/textures/bg.png");
     Texture2D groundTexture1 = LoadTexture("src/resources/textures/ground.png");
@@ -99,9 +102,9 @@ int main(){
     playerAnim.isRunning = true;
 
     if (level == 2){
-            obstacleCount = 30;
-            obstacleSpacing = 500;
-        }
+        obstacleCount = 30;
+        obstacleSpacing = 500;
+    }
 
     // Init Array of obstacles
     Obstacle obsList[obstacleCount];
@@ -183,6 +186,7 @@ int main(){
                 frames = 0;
             }
 
+            // Draw Score to screen
             DrawText(TextFormat("%d", score), 100, 100, 100, RED);
 
 
@@ -250,7 +254,16 @@ int main(){
             playerAnim.pos.x = myPlayer.posX;
             playerAnim.pos.y = myPlayer.posY;
 
-            DrawTextureRec(playerTexture, playerAnim.rec, playerAnim.pos, WHITE);
+            DrawTextureRec(playerTexture, playerAnim.rec, playerAnim.pos, playerTint);
+
+            // Invincibility
+            if (IsKeyPressed(KEY_G)){
+                myPlayer.invincible = true;
+            }
+            
+            if (myPlayer.invincible) {
+                playerTint = YELLOW;
+            }
 
             // Loop through array of obstacles to draw and move them across screen
             for (int i = 0; i < obstacleCount; i++){
@@ -258,8 +271,12 @@ int main(){
                 obsList[i].Update();
                 // Collision detection
                 if(CheckCollisionRecs(myPlayer.hitbox, obsList[i].hitbox)){
-                    randomizeObstacles(obsList);
-                    resetGame();
+                    if (!myPlayer.invincible){
+                        randomizeObstacles(obsList);
+                        resetGame();
+                    } else {
+                        myPlayer.invincible = false;
+                    }
                 }
                 if(obsList[i].posX == myPlayer.posX - obstacleWidth) {
                     score ++;

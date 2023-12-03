@@ -20,6 +20,7 @@ class Player: public Object {
         bool isJumping;
         bool isCrouching;
         bool collision;
+        bool invincible;
         Player(int x, int y, int width, int height, Color color);
 
         void Draw();

@@ -12,10 +12,11 @@ Player::Player(int x, int y, int width, int height, Color color)
     isCrouching(false),
     collision(false),
     jump(LoadSound("src/resources/sounds/jump.wav")),
-    crouch(LoadSound("src/resources/sounds/crouch.wav"))
+    crouch(LoadSound("src/resources/sounds/crouch.wav")),
+    invincible(false)
     {}
 
-// Draw object to screen
+// Draw player bounding box to screen
 void Player::Draw(){
     DrawRectangle(posX, posY, width, height, color);
 }
