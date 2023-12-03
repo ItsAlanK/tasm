@@ -21,13 +21,14 @@ int groundPosX2{1920};
 // Player start position x
 int playerPosX{windowWidth/4 - playerWidth/2};
 
+// Default tint of player sprite
 Color playerTint{WHITE};
 
 // Game Params
 int obstacleCount{20}; // No.  of obstacles in game
-int obstacleSpacing{600};
-bool menu{true};
-bool alive{false};
+int obstacleSpacing{600}; // Space between obstacles
+bool menu{true}; // is menu active
+bool alive{false}; // is player alive
 float volume{0.01};
 int level{1};
 int frames{0}; //Counts frames invincible player is colliding w/ object
@@ -41,6 +42,9 @@ int highObsY{playerPosY}; // Flying obstacle Y position
 int lowObsY{(playerPosY + playerHeight) - obstacleHeight}; // Grounded obstacle Y position
 
 
+/**
+ * Reset Game states and counters
+*/
 void resetGame() {
     buttonText = "Try Again";
     menu = true;
@@ -50,6 +54,10 @@ void resetGame() {
     score = 0;
 }
 
+
+/**
+ * Randomize order of obstacles
+*/
 void randomizeObstacles(Obstacle obsList[]) {
     for (int i = 0; i < obstacleCount; i++) {
         // Random Boolean taken from https://stackoverflow.com/questions/43329352/generating-random-boolean
@@ -179,14 +187,17 @@ int main(){
                     playBtnColor = RAYWHITE;
                 }
 
-                if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) alive = true;
+                if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+                    alive = true;
+                }
             }
             else {
-                playBtnColor = WHITE;
+                playBtnColor = RAYWHITE;
             }
         }
 
 
+        // Main Gameplay
         if(alive){
             // Count time while alive
             // frames ++;
@@ -197,7 +208,7 @@ int main(){
 
             // Draw Score to screen
             // DrawText(TextFormat("%d", frames), 40, 40, 100, RED);
-            DrawText(TextFormat("%d", score), 100, 100, 100, RAYWHITE);
+            DrawText(TextFormat("%d", score), 50, 50, 100, RAYWHITE);
 
 
             // Scroll Bg textures
