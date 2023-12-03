@@ -29,6 +29,7 @@ float volume{0.01};
 int level{1};
 int frames{0};
 int timer{0};
+int score{0};
 
 // Obstacle Params
 int highObsY{playerPosY}; // Flying obstacle Y position
@@ -49,6 +50,14 @@ void randomizeObstacles(Obstacle obsList[]) {
         obsList[i].hitbox.width = obstacleWidth;
         obsList[i].hitbox.height = obstacleHeight;
     }
+}
+
+void resetGame() {
+    buttonText = "Try Again";
+    menu = true;
+    alive = false;
+    timer = 0;
+    score = 0;
 }
 
 int main(){
@@ -174,7 +183,7 @@ int main(){
                 frames = 0;
             }
 
-            DrawText(TextFormat("%d", timer), 100, 100, 100, RED);
+            DrawText(TextFormat("%d", score), 100, 100, 100, RED);
 
 
             // Scroll Bg textures
@@ -250,9 +259,10 @@ int main(){
                 // Collision detection
                 if(CheckCollisionRecs(myPlayer.hitbox, obsList[i].hitbox)){
                     randomizeObstacles(obsList);
-                    buttonText = "Try Again";
-                    menu = true;
-                    alive = false;
+                    resetGame();
+                }
+                if(obsList[i].posX == myPlayer.posX - obstacleWidth) {
+                    score ++;
                 }
             }
        }
