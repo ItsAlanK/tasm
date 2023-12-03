@@ -1,8 +1,11 @@
 # TASM #
 
+This is a small auto runner game created using raylib and C++. I have larger ideas for aesthetic and features for this game that I will probably revisit using a more robust technology but this is a nice test and vibe check.
 
 ## Features & Technologies ##
-
+- [C++](https://cplusplus.com/)
+- [Raylib](https://www.raylib.com/)
+- [Raymath](https://github.com/raysan5/raylib/blob/master/src/raymath.h)
 
 ### Required Features ###
 
@@ -17,8 +20,9 @@
 
 ### Additional Feature Targets ###
 
-- [ ] Power-ups 
-- [ ] Particle effects on death
+- [X] Power-ups / Invincibility
+- [X] Score and reset game on completion
+- [X] Parallax Backgrounds
 - [ ] Different levels of difficulty
 
 ## Future Improvements ##
