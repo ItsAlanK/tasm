@@ -5,6 +5,10 @@
 // Set window size
 const int windowWidth{960};
 const int windowHeight{960};
+int bgPosX1{0};
+int bgPosX2{3835};
+int groundPosX1{0};
+int groundPosX2{1920};
 
 // Game Params
 int obstacleCount{20}; // No.  of obstacles in game

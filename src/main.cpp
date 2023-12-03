@@ -33,6 +33,11 @@ int main(){
     Font titleFont = LoadFont("src/resources/fonts/daydream.ttf");
     Font bodyFont = LoadFont("src/resources/fonts/retro-gaming.ttf");
 
+    Texture2D bgTexture1 = LoadTexture("src/resources/textures/bg.png");
+    Texture2D bgTexture2 = LoadTexture("src/resources/textures/bg.png");
+    Texture2D groundTexture1 = LoadTexture("src/resources/textures/ground.png");
+    Texture2D groundTexture2 = LoadTexture("src/resources/textures/ground.png");
+
     // Init Player object
     Player myPlayer(playerPosX, playerPosY, playerWidth, playerHeight, BLUE);
     myPlayer.hitbox.x = playerPosX;
@@ -96,6 +101,10 @@ int main(){
 
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
+        DrawTexture(bgTexture1, bgPosX1, 0, WHITE);
+        DrawTexture(bgTexture2, bgPosX2, 0, WHITE);
+        DrawTexture(groundTexture1, groundPosX1, 0, WHITE);
+        DrawTexture(groundTexture2, groundPosX2, 0, WHITE);
 
         // Allows Main menu to clear when game is started
         if (alive) {
@@ -132,6 +141,30 @@ int main(){
         }
 
         if(alive){
+            // Scroll Bg textures
+            if (bgPosX1 <= -3840) {
+                bgPosX1 = 3835;
+            } else {
+                bgPosX1 -= 1;
+            }
+
+            if (bgPosX2 <= -3840) {
+                bgPosX2 = 3835;
+            } else {
+                bgPosX2 -= 1;
+            }
+
+            if (groundPosX1 <= -1920) {
+                groundPosX1 = 1920;
+            } else {
+                groundPosX1 -= 5;
+            }
+            if (groundPosX2 <= -1920) {
+                groundPosX2 = 1920;
+            } else {
+                groundPosX2 -= 5;
+            }
+
             // Impose gravity on player
             myPlayer.Apply_Gravity(deltaTime, playerPosY);
 
@@ -189,6 +222,10 @@ int main(){
         EndDrawing();
     }
     UnloadTexture(playerTexture);
+    UnloadTexture(bgTexture1);
+    UnloadTexture(bgTexture2);
+    UnloadTexture(groundTexture1);
+    UnloadTexture(groundTexture2);
     UnloadSound(myPlayer.jump);
     UnloadSound(myPlayer.crouch);
     UnloadFont(titleFont);
