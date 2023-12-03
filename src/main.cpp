@@ -275,7 +275,7 @@ int main(){
             } else {
                 playerTint = WHITE;
                 // Randomly spawns powerup. Odds increase with score.
-                if ((rand() % 100) < 0.1 * powerUpOdds/100) {
+                if ((rand() % 1000) < 0.01 * powerUpOdds/1000) {
                     powerUpAvail = true;
                 };
             }
